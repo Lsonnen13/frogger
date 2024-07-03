@@ -43,7 +43,7 @@ def event_handler():
                 tim.move("a")
             if i.key == pygame.K_RIGHT or i.key == pygame.K_d:
                 tim.move("d")
-                #(͠≖ ͜ʖ͠≖)
+                                                                                        #(͠≖ ͜ʖ͠≖)
 
 
 def draw():
