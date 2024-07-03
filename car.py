@@ -1,6 +1,6 @@
 import pygame
 class Car:
-    def __init__(slef, x, y, direction) -> None:
+    def __init__(slef, x, y, direction, speed) -> None:
         slef.direction = direction
         if direction == "right":
             slef.sprite = pygame.image.load("assets/car_right.png")
@@ -9,7 +9,7 @@ class Car:
         slef.size = [150, 66]
         slef.sprite = pygame.transform.scale(slef.sprite, slef.size)
         slef.position = [x, y]        
-        slef.speed = 5
+        slef.speed = speed
         
 
     def get_hitbox(slef):
@@ -19,4 +19,7 @@ class Car:
         window.blit(slef.sprite, slef.position)
     
     def move(slef):
-        slef.position[0] += slef.speed
+        if slef.direction == "right":
+            slef.position[0] += slef.speed
+        elif slef.direction == "left":
+            slef.position[0] -= slef.speed        

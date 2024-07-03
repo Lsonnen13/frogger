@@ -8,10 +8,11 @@ running = True
 background = pygame.image.load("assets/frogger.png")
 background = pygame.transform.scale(background, (1106, 1080))
 tim = Frog()
-car1a = Car(350, 930, "right")
-car1b = Car(1000, 930, "right")
-car2a = Car(1362, 830, "left")
-car2b = Car(1362, 830, "left")
+car1a = Car(350, 930, "right", 5)
+car1b = Car(1000, 930, "right", 5)
+car2a = Car(933, 830, "left", 3)
+car2b = Car(1362, 830, "left", 3)
+car2c = Car(473, 830, "left", 3)
 clock = pygame.time.Clock()
 
 # ----------- Functions -----------------------#
@@ -22,6 +23,9 @@ def main_game_loop():
         event_handler()
         car1a.move()
         car1b.move()
+        car2a.move()
+        car2b.move()
+        car2c.move()
         reset_car()
         draw()
         
@@ -53,6 +57,7 @@ def draw():
     car1b.draw(window)
     car2a.draw(window)
     car2b.draw(window)
+    car2c.draw(window)
     pygame.display.update()
 
 def reset_car():
@@ -60,6 +65,13 @@ def reset_car():
         car1a.position[0] = 257
     if car1b.position[0] >= 1513:
         car1b.position[0] = 257
+    if car2a.position[0] <= 257:
+        car2a.position[0] = 1513
+    if car2b.position[0] <= 257:
+        car2b.position[0] = 1513
+    if car2c.position[0] <= 257:
+        car2c.position[0] = 1513
+    
 
 
 #------------- start :D --------------#
