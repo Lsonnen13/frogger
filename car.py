@@ -6,7 +6,7 @@ class Car:
             slef.sprite = pygame.image.load("assets/car_right.png")
         elif direction == "left":
             slef.sprite = pygame.image.load("assets/car_left.png")
-        slef.size = [150, 66]
+        slef.size = [150, 60]
         slef.sprite = pygame.transform.scale(slef.sprite, slef.size)
         slef.position = [x, y]        
         slef.speed = speed
