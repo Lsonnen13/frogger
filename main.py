@@ -1,6 +1,8 @@
 import pygame
 from frog import Frog
 from car import Car
+from log import Log
+
 # -------------- Varibles --------------------- #
 
 window = pygame.display.set_mode(flags = pygame.FULLSCREEN)
@@ -17,6 +19,10 @@ car2b = Car(1362, 856, "left", 3)
 car2c = Car(473, 856, "left", 3)
 car3a = Car(670, 778, "right", 7)
 car3b = Car(150, 778, "right", 7)
+car4a = Car(900, 702, "left", 20)
+car5a = Car(500, 618, "right", 6)
+car5b = Car(1200, 618, "right", 5)
+log1a = Log(1200, 371, 3)
 clock = pygame.time.Clock()
 
 # ----------- Functions -----------------------#
@@ -32,6 +38,10 @@ def main_game_loop():
         car2c.move()
         car3a.move()
         car3b.move()
+        car4a.move()
+        car5a.move()
+        car5b.move()
+        log1a.move()
         reset_car()
         draw()
         
@@ -67,6 +77,10 @@ def draw():
     car2c.draw(window)
     car3a.draw(window)
     car3b.draw(window)
+    car4a.draw(window)
+    car5a.draw(window)
+    car5b.draw(window)
+    log1a.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
     pygame.display.update()
@@ -86,6 +100,14 @@ def reset_car():
         car3a.position[0] = 257
     if car3b.position[0] >= 1513:
         car3b.position[0] = 257
+    if car4a.position[0] <= 257:
+        car4a.position[0] = 1513
+    if car5a.position[0] >= 1513:
+        car5a.position[0] = 257
+    if car5b.position[0] >= 1513:
+        car5b.position[0] = 257
+    if log1a.position[0] >= 1513:
+        log1a.position[0] = 257
     
 
 
