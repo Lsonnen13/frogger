@@ -1,11 +1,12 @@
 import pygame
 class Log:
-    def __init__(slef, x, y, speed) -> None:
+    def __init__(slef, x, y, speed, width) -> None:
         slef.sprite = pygame.image.load("assets/big_twig.png")
-        slef.size = [200, 70]
+        slef.size = [width, 70]
         slef.sprite = pygame.transform.scale(slef.sprite, slef.size)
         slef.position = [x, y]        
         slef.speed = speed
+        
         
 
     def get_hitbox(slef):

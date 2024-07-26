@@ -2,6 +2,7 @@ import pygame
 from frog import Frog
 from car import Car
 from log import Log
+from tutle import Tutle
 
 # -------------- Varibles --------------------- #
 
@@ -22,7 +23,15 @@ car3b = Car(150, 778, "right", 7)
 car4a = Car(900, 702, "left", 20)
 car5a = Car(500, 618, "right", 6)
 car5b = Car(1200, 618, "right", 5)
-log1a = Log(1200, 371, 3)
+log1a = Log(1200, 371, 3, 200)
+log1b = Log(800, 371, 3, 200)
+log1c = Log(200, 371, 3, 200)
+log2a = Log(999, 292, 4, 400)
+log2b = Log(222, 292, 4, 400)
+log3a = Log(222, 138, 3.5, 250)
+log3b = Log(666, 138, 3.5, 250)
+log3c = Log(1111, 138, 3.5, 250)
+
 clock = pygame.time.Clock()
 
 # ----------- Functions -----------------------#
@@ -42,12 +51,21 @@ def main_game_loop():
         car5a.move()
         car5b.move()
         log1a.move()
+        log1b.move()
+        log1c.move()
+        log2a.move()
+        log2b.move()
+        log3a.move()
+        log3b.move()
+        log3c.move()
         reset_car()
+        reset_log()
         draw()
         
 
-
-
+#the order of stuff is turtle, log, log, turtle, log ok?
+#the 2 layer has 3 small slow logs, the 3rd has 2 fast big logs, and the 5th has 3 mid/long logs
+#first row two tutle, 4th row 3 tutle :D
 def event_handler():
     event_list = pygame.event.get()
     for i in event_list:
@@ -69,7 +87,6 @@ def event_handler():
 def draw():
     window.fill((0,0,0))
     window.blit(background, (407, 0))
-    tim.draw(window)
     car1a.draw(window)
     car1b.draw(window)
     car2a.draw(window)
@@ -81,6 +98,14 @@ def draw():
     car5a.draw(window)
     car5b.draw(window)
     log1a.draw(window)
+    log1b.draw(window)
+    log1c.draw(window)
+    log2a.draw(window)
+    log2b.draw(window)
+    log3a.draw(window)
+    log3b.draw(window)
+    log3c.draw(window)
+    tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
     pygame.display.update()
@@ -106,8 +131,27 @@ def reset_car():
         car5a.position[0] = 257
     if car5b.position[0] >= 1513:
         car5b.position[0] = 257
+
+def reset_log():
     if log1a.position[0] >= 1513:
-        log1a.position[0] = 257
+        log1a.position[0] = 207
+    if log1b.position[0] >= 1513:
+        log1b.position[0] = 207
+    if log1c.position[0] >= 1513:
+        log1c.position[0] = 207
+    if log2a.position[0] >= 1513:
+        log2a.position[0] = 7
+    if log2b.position[0] >= 1513:
+        log2b.position[0] = 7
+    if log3a.position[0] >= 1513:
+        log3a.position[0] = 157
+    if log3b.position[0] >= 1513:   
+        log3b.position[0] = 157
+    if log3c.position[0] >= 1513:   
+        log3c.position[0] = 157
+
+
+        
     
 
 
