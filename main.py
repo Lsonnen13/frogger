@@ -35,6 +35,8 @@ tutle1a1 = Tutle(800, 450)
 tutle1a2 = Tutle(890, 450)
 tutle1a3 = Tutle(980, 450)
 tutle1b1 = Tutle(1200, 450)
+tutle1b2 = Tutle(1290, 450)
+tutle1b3 = Tutle(1380, 450)
 
 
 clock = pygame.time.Clock()
@@ -67,6 +69,8 @@ def main_game_loop():
         tutle1a2.move()
         tutle1a3.move()
         tutle1b1.move()
+        tutle1b2.move()
+        tutle1b3.move()
         reset_car()
         reset_log()
         reset_tutle()
@@ -119,6 +123,8 @@ def draw():
     tutle1a2.draw(window)
     tutle1a3.draw(window)
     tutle1b1.draw(window)
+    tutle1b2.draw(window)
+    tutle1b3.draw(window)
     tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
@@ -171,7 +177,14 @@ def reset_tutle():
         tutle1a2.position[0] = 1513
     if tutle1a3.position[0] <= 317:
         tutle1a3.position[0] = 1513
-    
+    if tutle1b1.position[0] <= 317:
+        tutle1b1.position[0] = 1513   
+    if tutle1b2.position[0] <= 317:
+        tutle1b2.position[0] = 1513   
+    if tutle1b3.position[0] <= 317:
+        tutle1b3.position[0] = 1513   
+
+
 
 
         
