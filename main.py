@@ -31,6 +31,11 @@ log2b = Log(222, 292, 4, 400)
 log3a = Log(222, 138, 3.5, 250)
 log3b = Log(666, 138, 3.5, 250)
 log3c = Log(1111, 138, 3.5, 250)
+tutle1a1 = Tutle(800, 450)
+tutle1a2 = Tutle(890, 450)
+tutle1a3 = Tutle(980, 450)
+tutle1b1 = Tutle(1200, 450)
+
 
 clock = pygame.time.Clock()
 
@@ -58,8 +63,13 @@ def main_game_loop():
         log3a.move()
         log3b.move()
         log3c.move()
+        tutle1a1.move()
+        tutle1a2.move()
+        tutle1a3.move()
+        tutle1b1.move()
         reset_car()
         reset_log()
+        reset_tutle()
         draw()
         
 
@@ -105,6 +115,10 @@ def draw():
     log3a.draw(window)
     log3b.draw(window)
     log3c.draw(window)
+    tutle1a1.draw(window)
+    tutle1a2.draw(window)
+    tutle1a3.draw(window)
+    tutle1b1.draw(window)
     tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
@@ -149,6 +163,15 @@ def reset_log():
         log3b.position[0] = 157
     if log3c.position[0] >= 1513:   
         log3c.position[0] = 157
+
+def reset_tutle():
+    if tutle1a1.position[0] <= 317:
+        tutle1a1.position[0] = 1513
+    if tutle1a2.position[0] <= 317:
+        tutle1a2.position[0] = 1513
+    if tutle1a3.position[0] <= 317:
+        tutle1a3.position[0] = 1513
+    
 
 
         
