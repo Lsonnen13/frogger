@@ -1,11 +1,12 @@
 import pygame
 class Tutle:
-    def __init__(slef, x, y):
+    def __init__(slef, x, y, sink = False):
         slef.sprite = pygame.image.load("assets/tutle.png")
         slef.size = [90, 70]
         slef.sprite = pygame.transform.scale(slef.sprite, slef.size)
         slef.position = [x, y]        
         slef.speed = 3.5
+        slef.sink = sink
         
         
 
