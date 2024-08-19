@@ -40,6 +40,9 @@ tutle1b3 = Tutle(1380, 450)
 tutle1c1 = Tutle(300, 450, True)
 tutle1c2 = Tutle(390, 450, True)
 tutle1c3 = Tutle(480, 450, True)
+tutle2a1 = Tutle(300, 215)
+tutle2a2 = Tutle(390, 215)
+tutle2a3 = Tutle(480, 215)
 
 
 
@@ -78,6 +81,11 @@ def main_game_loop():
         tutle1c1.move()
         tutle1c2.move()
         tutle1c3.move()
+        tutle2a1.move()
+        tutle2a2.move()
+        tutle2a3.move()
+
+
 
         reset_car()
         reset_log()
@@ -136,6 +144,11 @@ def draw():
     tutle1c1.draw(window)
     tutle1c2.draw(window)
     tutle1c3.draw(window)
+    tutle2a1.draw(window)
+    tutle2a2.draw(window)
+    tutle2a3.draw(window)
+
+
 
     tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
@@ -201,6 +214,14 @@ def reset_tutle():
         tutle1c2.position[0] = 1513   
     if tutle1c3.position[0] <= 317:
         tutle1c3.position[0] = 1513   
+    if tutle2a1.position[0] <= 317:
+        tutle2a1.position[0] = 1513   
+    if tutle2a2.position[0] <= 317:
+        tutle2a2.position[0] = 1513   
+    if tutle2a3.position[0] <= 317:
+        tutle2a3.position[0] = 1513   
+
+
 
 
 
