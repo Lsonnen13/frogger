@@ -37,12 +37,17 @@ tutle1a3 = Tutle(980, 450)
 tutle1b1 = Tutle(1200, 450)
 tutle1b2 = Tutle(1290, 450)
 tutle1b3 = Tutle(1380, 450)
-tutle1c1 = Tutle(300, 450, True)
-tutle1c2 = Tutle(390, 450, True)
-tutle1c3 = Tutle(480, 450, True)
-tutle2a1 = Tutle(300, 215)
-tutle2a2 = Tutle(390, 215)
-tutle2a3 = Tutle(480, 215)
+tutle1c1 = Tutle(350, 450, True)
+tutle1c2 = Tutle(440, 450, True)
+tutle1c3 = Tutle(530, 450, True)
+tutle2a1 = Tutle(600, 215)
+tutle2a2 = Tutle(690, 215)
+tutle2a3 = Tutle(780, 215)
+tutle2b1 = Tutle(1300, 215, True)
+tutle2b2 = Tutle(1390, 215, True)
+tutle2b3 = Tutle(1480, 215, True)
+
+
 
 
 
@@ -84,12 +89,18 @@ def main_game_loop():
         tutle2a1.move()
         tutle2a2.move()
         tutle2a3.move()
+        tutle2b1.move()
+        tutle2b2.move()
+        tutle2b3.move()
+
+
 
 
 
         reset_car()
         reset_log()
         reset_tutle()
+        check_death()
         draw()
         
 
@@ -147,6 +158,10 @@ def draw():
     tutle2a1.draw(window)
     tutle2a2.draw(window)
     tutle2a3.draw(window)
+    tutle2b1.draw(window)
+    tutle2b2.draw(window)
+    tutle2b3.draw(window)
+
 
 
 
@@ -220,8 +235,25 @@ def reset_tutle():
         tutle2a2.position[0] = 1513   
     if tutle2a3.position[0] <= 317:
         tutle2a3.position[0] = 1513   
+    if tutle2b1.position[0] <= 317:
+        tutle2b1.position[0] = 1513   
+    if tutle2b2.position[0] <= 317:
+        tutle2b2.position[0] = 1513   
+    if tutle2b3.position[0] <= 317:
+        tutle2b3.position[0] = 1513   
+
+def get_car_hitboxes():
+    car_list = [car1a, car1b, car2a, car2b, car2c, car3a, car3b, car4a, car5a, car5b]
+    hitboxes = []
+    for car in car_list:
+        hitbox = car.get_hitbox()
+        hitboxes.append(hitbox)
+    return hitboxes
 
 
+def check_death():
+    if tim.get_hitbox().collidelist(get_car_hitboxes()) != -1:
+        tim.position = [916, 1007]
 
 
 

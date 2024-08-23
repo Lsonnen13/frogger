@@ -13,7 +13,7 @@ class Car:
         
 
     def get_hitbox(slef):
-        return pygame.Rect(slef.position, slef.position)
+        return pygame.Rect(slef.position, slef.size)
     
     def draw(slef, window):
         window.blit(slef.sprite, slef.position)
