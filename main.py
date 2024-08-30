@@ -12,6 +12,7 @@ background = pygame.image.load("assets/frogger.png")
 background = pygame.transform.scale(background, (1106, 1080))
 left_border = pygame.Rect(0,0, 407, window.get_height())
 right_border = pygame.Rect(window.get_width() - 407, 0, 407, window.get_height())
+water = pygame.Rect(450, 130, 1015, 400)
 tim = Frog()
 car1a = Car(350, 930, "right", 5)
 car1b = Car(1000, 930, "right", 5)
@@ -101,6 +102,7 @@ def main_game_loop():
         reset_log()
         reset_tutle()
         check_death()
+        check_on_water()
         draw()
         
 
@@ -128,6 +130,7 @@ def event_handler():
 def draw():
     window.fill((0,0,0))
     window.blit(background, (407, 0))
+    #pygame.draw.rect(window, (0, 255, 0), water)
     car1a.draw(window)
     car1b.draw(window)
     car2a.draw(window)
@@ -250,14 +253,54 @@ def get_car_hitboxes():
         hitboxes.append(hitbox)
     return hitboxes
 
+def get_log_hitboxes():
+    log_list = [log1a, log1b, log1c, log2a, log2b, log3a, log3b, log3c]
+    hitboxes = []
+    for log in log_list:
+        hitbox = log.get_hitbox()
+        hitboxes.append(hitbox)
+    return hitboxes
+
+def get_tutle_hitboxes():
+    tutle_list = [tutle1a1,tutle1a2, tutle1a3, tutle1b1, tutle1b2, tutle1b3, tutle1c1, tutle1c2, tutle1c3, tutle2a1, tutle2a2, tutle2a3, tutle2b1, tutle2b2, tutle2b3]
+    hitboxes = []
+    for tutle in tutle_list:
+        hitbox = tutle.get_hitbox()
+        hitboxes.append(hitbox)
+    return hitboxes
 
 def check_death():
     if tim.get_hitbox().collidelist(get_car_hitboxes()) != -1:
         tim.position = [916, 1007]
+        return True
+    else: 
+        return False
 
 
+def check_on_log():
+    log_list = [log1a, log1b, log1c, log2a, log2b, log3a, log3b, log3c]
+    log_index = tim.get_hitbox().collidelist(get_log_hitboxes())
+    if log_index != -1:
+        log_speed = log_list[log_index].speed
+        tim.position[0] += log_speed
+        return True
+    else:
+        return False
+    
+def check_on_tutle():
+    if tim.get_hitbox().collidelist(get_tutle_hitboxes()) != -1:
+        tim.position[0] -= 3.5
+        return True
+    else:
+        return False
 
+def check_on_water():
+    if tim.get_hitbox().colliderect(water) == True:
+        if check_on_tutle() == False:
+            if check_on_log() == False:
+                tim.position = [916, 1007]
 
+    
 
         
     
