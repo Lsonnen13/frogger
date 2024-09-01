@@ -34,5 +34,6 @@ class Frog:
             slef.position[0] = 436
         if slef.position[0] >= 1396:
             slef.position[0] = 1396
+            # the time inbetween the frog sinking and going up can be about 1 second and it takes 4 seconds for the turtle to sink.
 
         
