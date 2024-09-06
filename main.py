@@ -13,6 +13,9 @@ background = pygame.transform.scale(background, (1106, 1080))
 left_border = pygame.Rect(0,0, 407, window.get_height())
 right_border = pygame.Rect(window.get_width() - 407, 0, 407, window.get_height())
 water = pygame.Rect(450, 130, 1015, 400)
+sinkingtutevent = pygame.event.custom_type()
+sunktutevent = pygame.event.custom_type()
+normaltutevent = pygame.event.custom_type()
 tim = Frog()
 car1a = Car(350, 930, "right", 5)
 car1b = Car(1000, 930, "right", 5)
@@ -125,6 +128,10 @@ def event_handler():
             if i.key == pygame.K_RIGHT or i.key == pygame.K_d:
                 tim.move("d")
                                                                                         #(͠≖ ͜ʖ͠≖)
+        if i.type == sinkingtutevent:
+            sinkingtutles = [tutle1c1, tutle1c2, tutle1c3, tutle2b1, tutle2b2, tutle2b3]
+            for tutle in sinkingtutles:
+                tutle.state = "sinking"
 
 
 def draw():
@@ -301,8 +308,14 @@ def check_on_water():
                 tim.position = [916, 1007]
 
     
+def start_sinking_timer():
+    pygame.time.set_timer(sinkingtutevent, 5000, 1,)
+    
+def start_sunk_timer():
+    pygame.time.set_timer(sunktutevent, 1000, 1)
 
-        
+def start_normal_timer():
+    pygame.time.set_timer(normaltutevent, 2000, 1)
     
 
 
