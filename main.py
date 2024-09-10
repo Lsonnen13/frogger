@@ -132,6 +132,22 @@ def event_handler():
             sinkingtutles = [tutle1c1, tutle1c2, tutle1c3, tutle2b1, tutle2b2, tutle2b3]
             for tutle in sinkingtutles:
                 tutle.state = "sinking"
+                start_sunk_timer()
+
+        if i.type == sunktutevent:
+            sunktutles = [tutle1c1, tutle1c2, tutle1c3, tutle2b1, tutle2b2, tutle2b3]
+            for tutle in sunktutles:
+                tutle.state = "sunk"
+                start_normal_timer()
+
+        if i.type == normaltutevent:
+            normaltutles = [tutle1c1, tutle1c2, tutle1c3, tutle2b1, tutle2b2, tutle2b3]
+            for tutle in normaltutles:
+                tutle.state = "normal"
+                start_sinking_timer( )
+
+
+
 
 
 def draw():
@@ -272,8 +288,9 @@ def get_tutle_hitboxes():
     tutle_list = [tutle1a1,tutle1a2, tutle1a3, tutle1b1, tutle1b2, tutle1b3, tutle1c1, tutle1c2, tutle1c3, tutle2a1, tutle2a2, tutle2a3, tutle2b1, tutle2b2, tutle2b3]
     hitboxes = []
     for tutle in tutle_list:
-        hitbox = tutle.get_hitbox()
-        hitboxes.append(hitbox)
+        if tutle.state == "normal" or tutle.state == "sinking":
+            hitbox = tutle.get_hitbox()
+            hitboxes.append(hitbox)
     return hitboxes
 
 def check_death():
@@ -309,7 +326,7 @@ def check_on_water():
 
     
 def start_sinking_timer():
-    pygame.time.set_timer(sinkingtutevent, 5000, 1,)
+    pygame.time.set_timer(sinkingtutevent, 3000, 1,)
     
 def start_sunk_timer():
     pygame.time.set_timer(sunktutevent, 1000, 1)
@@ -320,4 +337,5 @@ def start_normal_timer():
 
 
 #------------- start :D --------------#
+start_sinking_timer()
 main_game_loop()

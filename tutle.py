@@ -17,7 +17,13 @@ class Tutle:
         return pygame.Rect(slef.position, slef.size)
     
     def draw(slef, window):
-        window.blit(slef.sprite, slef.position)
+        if slef.state == "normal":
+            window.blit(slef.sprite, slef.position)
+        if slef.state == "sinking":
+            window.blit(slef.sinkingsprite, slef.position)
+
+        if slef.state == "sunk":
+            return
     
     def move(slef):
         slef.position[0] -= slef.speed 
