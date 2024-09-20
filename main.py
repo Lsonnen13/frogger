@@ -3,6 +3,8 @@ from frog import Frog
 from car import Car
 from log import Log
 from tutle import Tutle
+import random
+from fly import Fly
 
 # -------------- Varibles --------------------- #
 
@@ -51,7 +53,7 @@ tutle2b1 = Tutle(1300, 215, True)
 tutle2b2 = Tutle(1390, 215, True)
 tutle2b3 = Tutle(1480, 215, True)
 
-
+current_fly = None
 
 
 
@@ -96,6 +98,7 @@ def main_game_loop():
         tutle2b1.move()
         tutle2b2.move()
         tutle2b3.move()
+        current_fly.move()
 
 
 
@@ -104,6 +107,7 @@ def main_game_loop():
         reset_car()
         reset_log()
         reset_tutle()
+        reset_current_fly()
         check_death()
         check_on_water()
         draw()
@@ -187,10 +191,7 @@ def draw():
     tutle2b1.draw(window)
     tutle2b2.draw(window)
     tutle2b3.draw(window)
-
-
-
-
+    current_fly.draw(window)
     tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
@@ -266,7 +267,11 @@ def reset_tutle():
     if tutle2b2.position[0] <= 317:
         tutle2b2.position[0] = 1513   
     if tutle2b3.position[0] <= 317:
-        tutle2b3.position[0] = 1513   
+        tutle2b3.position[0] = 1513
+
+def reset_current_fly():
+    if current_fly.position[0] >= 1513:
+        current_fly.position[0] = current_fly.resetx
 
 def get_car_hitboxes():
     car_list = [car1a, car1b, car2a, car2b, car2c, car3a, car3b, car4a, car5a, car5b]
@@ -333,9 +338,16 @@ def start_sunk_timer():
 
 def start_normal_timer():
     pygame.time.set_timer(normaltutevent, 2000, 1)
+
+def spawn_fly():
+    global current_fly
+    log_list = [log1a, log1b, log1c, log2a, log2b, log3a, log3b, log3c]
+    thechosen_log = random.choice(log_list)
+    current_fly = Fly(thechosen_log.position[0], thechosen_log.position[1], thechosen_log.speed, 407-thechosen_log.size[0])
     
 
 
 #------------- start :D --------------#
 start_sinking_timer()
+spawn_fly()
 main_game_loop()
