@@ -15,6 +15,7 @@ background = pygame.transform.scale(background, (1106, 1080))
 left_border = pygame.Rect(0,0, 407, window.get_height())
 right_border = pygame.Rect(window.get_width() - 407, 0, 407, window.get_height())
 water = pygame.Rect(450, 130, 1015, 400)
+winzone_1 = pygame.Rect(450, 50, 75, 75)
 sinkingtutevent = pygame.event.custom_type()
 sunktutevent = pygame.event.custom_type()
 normaltutevent = pygame.event.custom_type()
@@ -100,16 +101,14 @@ def main_game_loop():
         tutle2b3.move()
         current_fly.move()
 
-
-
-
-
         reset_car()
         reset_log()
         reset_tutle()
         reset_current_fly()
         check_death()
         check_on_water()
+        if tim.has_fly == False:
+            check_fly()
         draw()
         
 
@@ -191,10 +190,14 @@ def draw():
     tutle2b1.draw(window)
     tutle2b2.draw(window)
     tutle2b3.draw(window)
-    current_fly.draw(window)
+    if tim.has_fly == False:
+        current_fly.draw(window)
     tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
+    if tim.has_fly == True:
+        current_fly.draw_icon(window)
+    pygame.draw.rect(window, (0, 255, 0), winzone_1)
     pygame.display.update()
 
 def reset_car():
@@ -301,6 +304,7 @@ def get_tutle_hitboxes():
 def check_death():
     if tim.get_hitbox().collidelist(get_car_hitboxes()) != -1:
         tim.position = [916, 1007]
+        tim.has_fly = False
         return True
     else: 
         return False
@@ -328,6 +332,7 @@ def check_on_water():
         if check_on_tutle() == False:
             if check_on_log() == False:
                 tim.position = [916, 1007]
+                tim.has_fly = False
 
     
 def start_sinking_timer():
@@ -344,6 +349,10 @@ def spawn_fly():
     log_list = [log1a, log1b, log1c, log2a, log2b, log3a, log3b, log3c]
     thechosen_log = random.choice(log_list)
     current_fly = Fly(thechosen_log.position[0], thechosen_log.position[1], thechosen_log.speed, 407-thechosen_log.size[0])
+
+def check_fly():
+    if tim.get_hitbox().colliderect(current_fly.get_hitbox()):
+        tim.has_fly = True
     
 
 

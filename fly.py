@@ -14,6 +14,10 @@ class Fly:
     
     def draw(slef, window):
         window.blit(slef.sprite, slef.position)
+    
+    def draw_icon(slef, window):
+        window.blit(slef.sprite, (10, window.get_height() - 100))
+
 
     def move(slef):
         slef.position[0] += slef.speed

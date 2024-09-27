@@ -8,6 +8,7 @@ class Frog:
         slef.speed = [120, 79]
         slef.sprite = pygame.image.load("assets/frogforward.png")
         slef.sprite = pygame.transform.scale(slef.sprite, slef.size)
+        slef.has_fly = False
 
     def get_hitbox(slef):
         return pygame.Rect(slef.position, slef.size)
