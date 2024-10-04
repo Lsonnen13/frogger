@@ -15,7 +15,12 @@ background = pygame.transform.scale(background, (1106, 1080))
 left_border = pygame.Rect(0,0, 407, window.get_height())
 right_border = pygame.Rect(window.get_width() - 407, 0, 407, window.get_height())
 water = pygame.Rect(450, 130, 1015, 400)
-winzone_1 = pygame.Rect(450, 50, 75, 75)
+winzone_1 = pygame.Rect(427.5, 32.5, 140, 100)
+winzone_2 = pygame.Rect(655, 32.5, 140, 100)
+winzone_3 = pygame.Rect(892.5, 32.5, 140, 100)
+winzone_4 = pygame.Rect(1130, 32.5, 140, 100)
+winzone_5 = pygame.Rect(1367.5, 32.5, 140, 100)
+death_zone = pygame.Rect(427.5, 32.5, 1080, 100)
 sinkingtutevent = pygame.event.custom_type()
 sunktutevent = pygame.event.custom_type()
 normaltutevent = pygame.event.custom_type()
@@ -53,9 +58,10 @@ tutle2a3 = Tutle(780, 215)
 tutle2b1 = Tutle(1300, 215, True)
 tutle2b2 = Tutle(1390, 215, True)
 tutle2b3 = Tutle(1480, 215, True)
-
+bob = pygame.image.load("assets/safe.png")
+bob = pygame.transform.scale(bob, (140, 100))
 current_fly = None
-
+claimed_zone = [False, False, False, False, False]
 
 
 clock = pygame.time.Clock()
@@ -109,6 +115,7 @@ def main_game_loop():
         check_on_water()
         if tim.has_fly == False:
             check_fly()
+        check_safe()
         draw()
         
 
@@ -192,12 +199,18 @@ def draw():
     tutle2b3.draw(window)
     if tim.has_fly == False:
         current_fly.draw(window)
-    tim.draw(window)
     pygame.draw.rect(window, (0,0,1), left_border)
     pygame.draw.rect(window, (0,0,1), right_border)
     if tim.has_fly == True:
         current_fly.draw_icon(window)
-    pygame.draw.rect(window, (0, 255, 0), winzone_1)
+    # pygame.draw.rect(window, (255, 0, 0), death_zone)
+    # pygame.draw.rect(window, (0, 255, 0), winzone_1)
+    # pygame.draw.rect(window, (0, 255, 0), winzone_2)
+    # pygame.draw.rect(window, (0, 255, 0), winzone_3)
+    # pygame.draw.rect(window, (0, 255, 0), winzone_4)
+    # pygame.draw.rect(window, (0, 255, 0), winzone_5)
+    window.blit(bob, (winzone_1.x, winzone_1.y))
+    tim.draw(window)
     pygame.display.update()
 
 def reset_car():
@@ -307,6 +320,18 @@ def check_death():
         tim.has_fly = False
         return True
     else: 
+        return False
+    
+def check_safe():
+    safe_list = [winzone_1, winzone_2, winzone_3, winzone_4, winzone_5]
+    for zone in safe_list:
+        if zone.contains(tim.get_hitbox()):
+            print("you arnet ded! :D")
+            idx = safe_list.index(zone)
+            claimed_zone[idx] = True
+            return True
+    if death_zone.colliderect(tim.get_hitbox()):
+        print("ur ded D:")
         return False
 
 
