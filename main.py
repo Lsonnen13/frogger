@@ -62,7 +62,8 @@ bob = pygame.image.load("assets/safe.png")
 bob = pygame.transform.scale(bob, (140, 100))
 current_fly = None
 claimed_zone = [False, False, False, False, False]
-
+heart = pygame.image.load("assets/sprite_life00.png")
+heart = pygame.transform.scale(heart, (200, 200))
 
 clock = pygame.time.Clock()
 
@@ -209,7 +210,24 @@ def draw():
     # pygame.draw.rect(window, (0, 255, 0), winzone_3)
     # pygame.draw.rect(window, (0, 255, 0), winzone_4)
     # pygame.draw.rect(window, (0, 255, 0), winzone_5)
-    window.blit(bob, (winzone_1.x, winzone_1.y))
+    if claimed_zone[0] == True:
+        window.blit(bob, (winzone_1.x, winzone_1.y))
+    if claimed_zone[1] == True:
+        window.blit(bob, (winzone_2.x, winzone_2.y))
+    if claimed_zone[2] == True:
+        window.blit(bob, (winzone_3.x, winzone_3.y))
+    if claimed_zone[3] == True:
+        window.blit(bob, (winzone_4.x, winzone_4.y))
+    if claimed_zone[4] == True:
+        window.blit(bob, (winzone_5.x, winzone_5.y))
+    if tim.lives >= 1:
+        window.blit(heart, (1469, 850))
+    if tim.lives >= 2:
+        window.blit(heart, (1580, 850))
+    if tim.lives == 3:
+        window.blit(heart, (1691, 850))
+
+
     tim.draw(window)
     pygame.display.update()
 
@@ -318,6 +336,8 @@ def check_death():
     if tim.get_hitbox().collidelist(get_car_hitboxes()) != -1:
         tim.position = [916, 1007]
         tim.has_fly = False
+        tim.lives -= 1
+
         return True
     else: 
         return False
@@ -325,13 +345,17 @@ def check_death():
 def check_safe():
     safe_list = [winzone_1, winzone_2, winzone_3, winzone_4, winzone_5]
     for zone in safe_list:
-        if zone.contains(tim.get_hitbox()):
+        if zone.contains(tim.get_hitbox()) and tim.has_fly == True:
             print("you arnet ded! :D")
             idx = safe_list.index(zone)
             claimed_zone[idx] = True
+            tim.position = [916, 1007]
+            tim.has_fly = False
             return True
     if death_zone.colliderect(tim.get_hitbox()):
         print("ur ded D:")
+        tim.position = [916, 1007]
+        tim.has_fly = False
         return False
 
 
@@ -358,6 +382,7 @@ def check_on_water():
             if check_on_log() == False:
                 tim.position = [916, 1007]
                 tim.has_fly = False
+                tim.lives -= 1
 
     
 def start_sinking_timer():
