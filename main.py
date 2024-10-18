@@ -64,6 +64,30 @@ current_fly = None
 claimed_zone = [False, False, False, False, False]
 heart = pygame.image.load("assets/sprite_life00.png")
 heart = pygame.transform.scale(heart, (200, 200))
+heart_animation = [
+    pygame.image.load("assets/sprite_life00.png"),
+    pygame.image.load("assets/sprite_life01.png"),
+    pygame.image.load("assets/sprite_life02.png"),
+    pygame.image.load("assets/sprite_life03.png"),
+    pygame.image.load("assets/sprite_life04.png"),
+    pygame.image.load("assets/sprite_life05.png"),
+    pygame.image.load("assets/sprite_life06.png"),
+    pygame.image.load("assets/sprite_life07.png"),
+    pygame.image.load("assets/sprite_life08.png"),
+    pygame.image.load("assets/sprite_life09.png"),
+    pygame.image.load("assets/sprite_life10.png"),
+    pygame.image.load("assets/sprite_life11.png"),
+]
+i = 0
+for sprite in heart_animation:
+    heart_animation[i] = pygame.transform.scale(sprite, (200, 200))
+    i += 1
+heart_frame = 0
+heart_play = False
+
+lose_screen = pygame.image.load("assets/youlost.jpg")
+lose_frame = 0
+win_screen = pygame.image.load("assets/youwiiiiiiiiiiiiiiiin!.png")
 
 clock = pygame.time.Clock()
 
@@ -162,6 +186,7 @@ def event_handler():
 
 
 def draw():
+    global lose_frame
     window.fill((0,0,0))
     window.blit(background, (407, 0))
     #pygame.draw.rect(window, (0, 255, 0), water)
@@ -226,10 +251,32 @@ def draw():
         window.blit(heart, (1580, 850))
     if tim.lives == 3:
         window.blit(heart, (1691, 850))
-
+    if heart_play == True:
+        lose_life_animation()
 
     tim.draw(window)
+    if tim.lives <= 0:
+        window.blit(lose_screen, (407, 0))
+        lose_frame += 1
+        if lose_frame == 300:
+            pygame.quit()
+            quit()
+    if False not in claimed_zone:
+        window.blit(win_screen, (407, 0))
     pygame.display.update()
+
+def lose_life_animation():
+    global heart_frame, heart_play
+    if tim.lives == 2:
+        window.blit(heart_animation[heart_frame // 5], (1691, 850))
+    if tim.lives == 1:
+        window.blit(heart_animation[heart_frame // 5], (1580, 850))
+    if tim.lives == 0:
+        window.blit(heart_animation[heart_frame // 5], (1469, 850))
+    heart_frame += 1
+    if heart_frame == 60:
+        heart_play = False
+        heart_frame = 0
 
 def reset_car():
     if car1a.position[0] >= 1513:
@@ -334,10 +381,7 @@ def get_tutle_hitboxes():
 
 def check_death():
     if tim.get_hitbox().collidelist(get_car_hitboxes()) != -1:
-        tim.position = [916, 1007]
-        tim.has_fly = False
-        tim.lives -= 1
-
+        lose_life()
         return True
     else: 
         return False
@@ -353,9 +397,7 @@ def check_safe():
             tim.has_fly = False
             return True
     if death_zone.colliderect(tim.get_hitbox()):
-        print("ur ded D:")
-        tim.position = [916, 1007]
-        tim.has_fly = False
+        lose_life()
         return False
 
 
@@ -380,10 +422,14 @@ def check_on_water():
     if tim.get_hitbox().colliderect(water) == True:
         if check_on_tutle() == False:
             if check_on_log() == False:
-                tim.position = [916, 1007]
-                tim.has_fly = False
-                tim.lives -= 1
+                lose_life()
 
+def lose_life():
+    global heart_play
+    tim.position = [916, 1007]
+    tim.has_fly = False
+    tim.lives -= 1
+    heart_play = True
     
 def start_sinking_timer():
     pygame.time.set_timer(sinkingtutevent, 3000, 1,)
